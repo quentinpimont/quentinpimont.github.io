@@ -1,0 +1,81 @@
+<div class="row expanded">
+    <div class="large-12">
+        <h3>Compétences</h3>
+    </div>
+    <div class="large-12 columns">
+        <ul class="menu show-for-large">
+            <li ng-click="section = 0" class="navComp">Langages |</li>
+            <li ng-click="section = 1" class="navComp">Frameworks |</li>
+            <li ng-click="section = 2" class="navComp">Outils |</li>
+            <li ng-click="section = 3" class="navComp">Système d'exploitation |</li>    
+        </ul>
+    </div>
+    <div ng-show="section === 0" class="Scontent">
+        <div class="large-12 columns">
+            <h4>Langages</h4>
+        </div>
+        <div class="small-12 medium-12 large-6 columns skill end" ng-repeat="langage in competences.langage">
+            <div class="large-6 columns">
+                <p>{{langage.name}}:</p>
+            </div>
+            <div class="large-6 columns">
+                <div class="progress" role="progressbar" tabindex="0" aria-valuenow="20" aria-valuemin="0" aria-valuetext="{{langage.pourcent}} percent" aria-valuemax="100">
+                    <span class="progress-meter" style="width: {{langage.pourcent}}">
+                        <p class="progress-meter-text">{{langage.pourcent}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="section === 2" class="Scontent">
+        <div class="large-12 columns">
+            <h4>Outils</h4>
+        </div>
+        <div class="large-6 columns" ng-repeat="tool in competences.tools">
+            <div class="large-6 columns">
+                <p>{{tool.name}}:</p>
+            </div>
+            <div class="large-6 columns">
+                <div class="progress" role="progressbar" tabindex="0" aria-valuenow="20" aria-valuemin="0" aria-valuetext="25 percent" aria-valuemax="100">
+                    <span class="progress-meter" style="width: {{tool.pourcent}}">
+                        <p class="progress-meter-text">{{tool.pourcent}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="section === 1" class="Scontent">
+        <div class="large-12 columns">
+            <h4>Frameworks/librairie</h4>
+        </div>
+        <div class="large-6 columns end" ng-repeat="framework in competences.framework">
+            <div class="large-6 columns">
+                <p>{{framework.name}}:</p>
+            </div>
+            <div class="large-6 columns">
+                <div class="progress" role="progressbar" tabindex="0" aria-valuenow="20" aria-valuemin="0" aria-valuetext="25 percent" aria-valuemax="100">
+                    <span class="progress-meter" style="width: {{framework.pourcent}}">
+                        <p class="progress-meter-text">{{framework.pourcent}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="section === 3" class="Scontent">
+        <div class="large-12 columns">
+            <h4>Systèmes d'exploitations</h4>
+        </div>
+        <div class="large-6 columns" ng-repeat="system in competences.os">
+            <div class="large-6 columns">
+                <p>{{system.name}}:</p>
+            </div>
+            <div class="large-6 columns">
+                <div class="progress" role="progressbar" tabindex="0" aria-valuenow="20" aria-valuemin="0" aria-valuetext="25 percent" aria-valuemax="100">
+                    <span class="progress-meter" style="width: {{system.pourcent}}">
+                        <p class="progress-meter-text">{{system.pourcent}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

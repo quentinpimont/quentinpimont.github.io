@@ -1,0 +1,71 @@
+body,h1,h2,h3,h4{
+    font-family: 'Philosopher', sans-serif;
+}
+h1,h2,h4,em{
+    text-align: center;
+}
+h4{
+    margin-bottom: 10px;
+}
+h3{
+    background-color: #1468A0;
+    color: white;
+}
+.burger{
+    margin-left: 3%;
+    font-size: 2em;
+    color: #1468A0;
+}
+nav{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    height: 50px;
+    border-radius: 7px;
+    background-color: #1468A0;
+}
+.toggle{
+    background-color: #1468A0;
+}
+nav ul li a{
+    color: white;
+}
+nav ul li a:hover{
+    color: #FEFFE0;
+}
+nav ul li a:visited{
+    color: #FEFFE0;
+}
+nav ul li a{
+}
+.fa-chevron-down,.fa-chevron-up{
+    float: right;
+}
+.contact,.phrase{
+    margin-top: 30px;
+}
+.phrase{
+    font-size: 28px;
+}
+.content{
+    margin-top: 25px;
+}
+.navComp:hover{
+    cursor: pointer;
+}
+.heightSec li{
+    margin-top: 30px;
+}
+.heightSec li ul li{
+    margin-top: 0px;
+}
+@media screen and (max-width : 640px){
+    .pic{
+        text-align: center;
+    }
+}
+@media screen and (max-width: 1280px){
+    .phrase{
+        margin-top: 0px;
+    }
+}

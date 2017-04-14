@@ -1,0 +1,90 @@
+{
+    "langage": [
+        {
+            "name": "HTML/CSS",
+            "pourcent": "70%"
+        },
+        {
+            "name": "JavaScript",
+            "pourcent": "50%"
+        },
+        {
+            "name": "PHP",
+            "pourcent": "10%"
+        },
+        {
+            "name": "MySQL",
+            "pourcent": "10%"
+        },
+        {
+            "name": "C#",
+            "pourcent": "30%"
+        }
+    ],
+    "framework": [
+        {
+            "name": "Bootstrap",
+            "pourcent": "50%"
+        },
+        {
+            "name": "Foundation",
+            "pourcent": "50%"
+        },
+        {
+            "name": "JQuery",
+            "pourcent": "50%"
+        },
+        {
+            "name": "Angularjs",
+            "pourcent": "50%"
+        },
+        {
+            "name": "Symfony",
+            "pourcent": "10%"
+        }
+    ],
+    "tools": [
+        {
+            "name": "Ligne de commande",
+            "pourcent": "60%"
+        },
+        {
+            "name": "Nano",
+            "pourcent": "40%"
+        },
+        {
+            "name": "Atom",
+            "pourcent": "60%"
+        },
+        {
+            "name": "NetBeans",
+            "pourcent": "40%"
+        },
+        {
+            "name": "Visual Stusio",
+            "pourcent": "40%"
+        },
+        {
+            "name": "Git",
+            "pourcent": "40%"
+        },
+        {
+            "name": "GitHub/Bitbucket/Gitlab",
+            "pourcent": "50%"
+        },
+        {
+            "name": "LAMP/WAMP",
+            "pourcent": "40%"
+        }
+    ],
+    "os": [
+        {
+            "name": "Windows",
+            "pourcent": "80%"
+        },
+        {
+            "name": "Linux",
+            "pourcent": "40%"
+        }
+    ]
+}

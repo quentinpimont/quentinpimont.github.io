@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Quentin Pimont</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="assets/lib/foundation/css/foundation.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/lib/foundation/font/foundation-icons.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet"> 
+    </head>
+    <body ng-app="myApp">
+        <div class="row expanded">
+            <a class="hide-for-large" data-toggle="offCanvasLeft"><i class="fi-list-thumbnails burger"></i></a>
+            <header class="large-12 columns">
+                <div class="large-12 columns">
+                    <h1>Quentin Pimont</h1>
+                </div>
+                <div class="large-12 columns">
+                    <h2>Dévoloppeur web junior</h2>
+                </div>
+                <div class="small-12 medium-3 large-2 columns pic">
+                    <picture>
+                        <source srcset="assets/img/quentinp.jpg" media="(max-width: 1020px)"/>
+                        <img src="assets/img/22.jpg" class="thumbnail" alt="moi"/>
+                    </picture>
+                </div>
+                <div class="small-1 medium-6 large-4 columns show-for-large contact">
+                    <div class="small-12 medium-12 large-12 columns">
+                        <ul class="no-bullet">
+                            <li>Contact:</li>
+                            <li>60150 Thourotte</li>
+                            <li><a href="mailto:quentin.pimont.60@gmail.com" title="mail">quentin.pimont.60@gmail.com</a></li>
+                        </ul>
+                    </div>
+                    <div class="small-12 medium-12 large-12 columns">
+                        <ul class="menu">
+                            <li><a href="https://github.com/quentinpimont" title=""><i class="fa fa-github fa-5x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/quentin-pimont/"><i class="fa fa-linkedin-square fa-5x" aria-hidden="true"></i></a></li>
+                            <li><a href="assets/download/cv papier quentin pimont(1).pdf" title="mon cv papier"><i class="fa fa-file-pdf-o fa-4x" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="medium-9 large-6 columns text-center hide-for-small-only">
+                    <p class="phrase"><em>
+                            Passionné d’informatique, tout particulièrement du développement 
+                            et de l'univers du web. Je cherche à approfondir mes compétences 
+                            et me surpasser.
+                        </em></p>
+                </div>
+            </header>
+        </div>
+        <!-- menu ordi -->
+        <nav class="show-for-large">
+            <ul class="dropdown menu menu-centered" data-dropdown-menu>
+                <li><a href="#!/">Formations</a></li>
+                <li><a href="#!/experience">Experiences</a></li>
+                <li>
+                    <a href="#!/competence">Compétences</a>
+                    <ul class="menu toggle">
+                        <li><a href="#!/competence" ng-click="section = 0">Langages</a></li>
+                        <li><a href="#!/competence" ng-click="section = 1">Frameworks/librairie</a></li>
+                        <li><a href="#!/competence" ng-click="section = 2">Outils</a></li>
+                        <li><a href="#!/competence" ng-click="section = 3">Systèmes d'éxploitations</a></li>
+                    </ul>
+                </li>
+                <li><a href="#!/passion">Passions</a></li>
+            </ul>
+        </nav>
+        <!-- menu mobile -->
+        <div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas>
+            <!-- Your menu or Off-canvas content goes here -->
+            <div class="off-canvas-content" data-off-canvas-content>
+                <!-- Your page content lives here -->
+                <ul class="vertical menu">
+                    <li><a ng-click="showComp = false" data-toggle="offCanvasLeft" href="#!/">Formations</a></li>
+                    <li><a ng-click="showComp = false" data-toggle="offCanvasLeft" href="#!/experience">Experiences</a></li>
+                    <li><a ng-click="showComp = !showComp">Compétences<i ng-show="!showComp" class="fa fa-chevron-down" aria-hidden="true"></i><i ng-show="showComp" class="fa fa-chevron-up" aria-hidden="true"></i></a></li>
+                    <li><ul class="vertical" ng-show="showComp">
+                            <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 0; showComp = false">Langages</a></li>
+                            <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 1; showComp = false">Frameworks/librairie</a></li>
+                            <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 2; showComp = false">Outils</a></li>
+                            <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 3; showComp = false">Systèmes d'éxploitations</a></li>
+                        </ul></li>
+                    <li><a ng-click="showComp = false" data-toggle="offCanvasLeft" href="#!/passion">Passions</a></li>
+                    <li><a ng-click="showComp = false" data-toggle="offCanvasLeft" href="#!/contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content" ng-view></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="assets/lib/foundation/js/vendor/foundation.min.js" type="text/javascript"></script>
+        <script src="assets/lib/foundation/js/app.js" type="text/javascript"></script>
+        <script src="assets/lib/angular/angular.min.js" type="text/javascript"></script>
+        <script src="assets/lib/angular/angular-route.min.js" type="text/javascript"></script>
+        <script src="https://use.fontawesome.com/a85a823305.js"></script>
+        <script src="assets/js/app.js" type="text/javascript"></script>
+    </body>
+</html>
