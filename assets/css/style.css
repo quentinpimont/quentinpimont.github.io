@@ -16,6 +16,9 @@ h3{
     font-size: 2em;
     color: #1468A0;
 }
+.menuDeroulant{
+    margin-left: 10%;
+}
 nav{
     display: flex;
     align-items: center;

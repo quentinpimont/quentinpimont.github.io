@@ -35,8 +35,8 @@
                     </div>
                     <div class="small-12 medium-12 large-12 columns">
                         <ul class="menu">
-                            <li><a href="https://github.com/quentinpimont" title=""><i class="fa fa-github fa-5x" aria-hidden="true"></i></a></li>
-                            <li><a href="https://www.linkedin.com/in/quentin-pimont/"><i class="fa fa-linkedin-square fa-5x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://github.com/quentinpimont" title="mon github"><i class="fa fa-github fa-5x" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/quentin-pimont/" title="mon linkedin"><i class="fa fa-linkedin-square fa-5x" aria-hidden="true"></i></a></li>
                             <li><a href="assets/download/cv papier quentin pimont(1).pdf" title="mon cv papier"><i class="fa fa-file-pdf-o fa-4x" aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
@@ -76,7 +76,7 @@
                     <li><a ng-click="showComp = false" data-toggle="offCanvasLeft" href="#!/">Formations</a></li>
                     <li><a ng-click="showComp = false" data-toggle="offCanvasLeft" href="#!/experience">Experiences</a></li>
                     <li><a ng-click="showComp = !showComp">Compétences<i ng-show="!showComp" class="fa fa-chevron-down" aria-hidden="true"></i><i ng-show="showComp" class="fa fa-chevron-up" aria-hidden="true"></i></a></li>
-                    <li><ul class="vertical" ng-show="showComp">
+                    <li><ul class="vertical no-bullet menuDeroulant" ng-show="showComp">
                             <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 0; showComp = false">Langages</a></li>
                             <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 1; showComp = false">Frameworks/librairie</a></li>
                             <li><a data-toggle="offCanvasLeft" href="#!/competence" ng-click="section = 2; showComp = false">Outils</a></li>
