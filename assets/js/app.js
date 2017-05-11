@@ -15,6 +15,8 @@ app.config(['$routeProvider',function ($routeProvider) {
                 controller: 'passion'})
                 .when('/contact',{templateUrl:'assets/views/contact.html',
                 controller: 'contact'})
+                .when('/jeux',{templateUrl:'assets/views/jeux.html',
+                controller: 'jeux'})
                 .otherwise({redirectTo: '/'});
     }]);
 app.controller('formation',function () {
@@ -33,5 +35,8 @@ app.controller('passion',function () {
         
     });
 app.controller('contact',function () {
+        
+    });
+    app.controller('jeux',function () {
         
     });
