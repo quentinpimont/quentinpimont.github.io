@@ -7,7 +7,7 @@ var playState = {
         this.background.width = '660';
         this.player = this.game.add.sprite(50, 355, 'player');
         this.player.anchor.setTo(0.5, 0.5);
-        this.ennemie = this.game.add.sprite(640 - 50, 355, 'ennemie');
+        this.ennemie = this.game.add.sprite(590, 355, 'ennemie');
         this.ennemie.scale.setTo(-1, 1);
         this.ennemie.anchor.setTo(0.5, 0.5);
         this.playerConfigBar = {
@@ -42,17 +42,19 @@ var playState = {
         // crée toutes les annimations que l'on a besoin
         this.playerHealth = new HealthBar(this.game, this.playerConfigBar);
         this.enemieHealth = new HealthBar(this.game, this.ennemieConfigBar);
-        this.annimCacPlayer = this.player.animations.add('playerCac', [11, 5, 6, 7, 0], 6);
+        this.annimCacPlayer = this.player.animations.add('playerCac', [11, 5, 6, 7, 0, 11], 6);
         this.annimKikohaPlayer = this.player.animations.add('playerKikoha', [2, 0], 1);
         this.annimDefPlayer = this.player.animations.add('playerDef', [8], 1);
+        this.annimDefCacPlayer = this.player.animations.add('playerDefCac', [11, 8, 11, 0], 3);
         this.annimStansePlayer = this.player.animations.add('playerStanse', [0], 1);
-        this.annimCacEnnemi = this.ennemie.animations.add('ennemiCac', [10, 1, 2, 3, 4, 5, 0], 8);
+        this.annimCacEnnemi = this.ennemie.animations.add('ennemiCac', [10, 1, 2, 3, 4, 5,10 ,0], 8);
         this.annimKikohaEnnemi = this.ennemie.animations.add('ennemiKikoha', [7, 0], 1);
         this.annimDefEnnemi = this.ennemie.animations.add('ennemiDef', [8], 1);
+        this.annimDefCacEnnemi = this.ennemie.animations.add('ennemiDefCac', [10, 8, 10, 0], 3);
         // variable qui sert a que l'ennemie ne choisit qu'une fois son attaque par tour
         this.iaChoice = true;
     },
-    update: function(){
+    update: function () {
         // permet a l'affichage de barre de vie 
         this.enemieHealth.setPercent(ennemieStats.pv / 200 * 100);
         this.playerHealth.setPercent(playerStats.pv / 200 * 100);
@@ -67,55 +69,71 @@ var playState = {
             default:
                 if (playerAtt === 'kikoha') {
                     this.annimKikohaPlayer.play('playerKikoha');
-                    this.kikohaPayer = game.add.sprite(this.player.x,this.player.y,'kikohaPlayer');
+                    this.kikohaPayer = game.add.sprite(this.player.x, this.player.y, 'kikohaPlayer');
                     game.physics.enable(this.kikohaPayer, Phaser.Physics.ARCADE);
                     this.kikohaPayer.angle = -45;
                     this.kikohaPayer.body.velocity.x = 500;
                     this.annimDefEnnemi.play('ennemiDef');
-                    game.time.events.add(Phaser.Timer.SECOND * 1, function(){
-                        this.kikohaPayer.destroy(true,false);
+                    game.time.events.add(Phaser.Timer.SECOND * 1, function () {
+                        this.kikohaPayer.destroy(true, false);
                         ennemieStats.pv -= (playerStats.att * 5) - (ennemieStats.def / 1.5);
                         if (ennemieStats.pv <= 0) {
                             game.state.start('menu');
                         }
                     }, this);
                 } else {
-                    this.player.x = this.ennemie.x - 32;
-                    this.annimDefEnnemi.play('ennemiDef');
+                    this.posX = 50 + Math.floor(Math.random() * 559);
+                    this.posY = 0 + Math.floor(Math.random() * 355);
+                    this.player.x = this.posX;
+                    this.player.y = this.posY;
+                    this.ennemie.x = this.posX + 32;
+                    this.ennemie.y = this.posY;
+                    this.annimDefCacEnnemi.play('ennemiDefCac');
                     this.annimCacPlayer.play('playerCac');
                     game.time.events.add(Phaser.Timer.SECOND * 1, function () {
                         ennemieStats.pv -= (playerStats.att * 4) - ennemieStats.def;
                         this.player.x = 50;
+                        this.player.y = 355;
+                        this.ennemie.x = 590;
+                        this.ennemie.y = 355;
                         if (ennemieStats.pv <= 0) {
                             game.state.start('menu');
                         }
                     }, this);
                 }
                 game.time.events.add(Phaser.Timer.SECOND * 1.5, function () {
-                    if (ennemieAtt === 'kikoha'){
+                    if (ennemieAtt === 'kikoha') {
                         this.annimKikohaEnnemi.play('ennemiKikoha');
                         this.annimDefPlayer.play('playerDef');
-                        this.kikohaPayer = game.add.sprite(this.ennemie.x,this.ennemie.y + 30,'kikohaEnnemi');
-                    game.physics.enable(this.kikohaPayer, Phaser.Physics.ARCADE);
-                    this.kikohaPayer.angle = 180;
-                    this.kikohaPayer.body.velocity.x = -450;
-                        game.time.events.add(Phaser.Timer.SECOND * 1, function(){
-                            this.kikohaPayer.destroy(true,false);
+                        this.kikohaPayer = game.add.sprite(this.ennemie.x, this.ennemie.y + 30, 'kikohaEnnemi');
+                        game.physics.enable(this.kikohaPayer, Phaser.Physics.ARCADE);
+                        this.kikohaPayer.angle = 180;
+                        this.kikohaPayer.body.velocity.x = -500;
+                        game.time.events.add(Phaser.Timer.SECOND * 1, function () {
+                            this.kikohaPayer.destroy(true, false);
                             playerStats.pv -= (ennemieStats.att * 4) - playerStats.def;
-                             this.annimStansePlayer.play('playerDef');
+                            this.annimStansePlayer.play('playerDef');
                             if (ennemieStats.pv <= 0) {
                                 game.state.start('menu');
                             }
                         }
                         , this);
                     } else {
-                        this.ennemie.x = this.player.x + 32;
-                        this.annimDefPlayer.play('playerDef');
+                        this.posX = 50 + Math.floor(Math.random() * 559);
+                        this.posY = 0 + Math.floor(Math.random() * 355);
+                        this.player.x = this.posX;
+                        this.player.y = this.posY;
+                        this.ennemie.x = this.posX + 32;
+                        this.ennemie.y = this.posY;
+                        this.annimDefCacPlayer.play('playerDefCac');
                         this.annimCacEnnemi.play('ennemiCac');
                         game.time.events.add(Phaser.Timer.SECOND * 1, function () {
                             playerStats.pv -= (ennemieStats.att * 5) - playerStats.def;
+                            this.player.x = 50;
+                            this.player.y = 355;
                             this.ennemie.x = 590;
-                             this.annimStansePlayer.play('playerDef');
+                            this.ennemie.y = 355;
+                            this.annimStansePlayer.play('playerDef');
                             if (ennemieStats.pv <= 0) {
                                 game.state.start('menu');
                             }
