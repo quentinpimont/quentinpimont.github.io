@@ -1,6 +1,6 @@
 {
   "name": "quentin",
   "dependencies": {
-    "progressbar.js": "1.0.1"
+    "phaser-ce": "2.7.7"
   }
 }
