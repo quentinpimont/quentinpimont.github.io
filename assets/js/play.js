@@ -3,13 +3,21 @@ var ennemieAtt;
 var ennemiePossibility = ['cac', 'kikoha'];
 var playState = {
     create: function () {
+        // initialise le brackground de la phase principale du jeu
         this.background = this.game.add.sprite(-10, 0, 'namek');
+        // définis la taille du background en pixel
         this.background.width = '660';
+        // crée le sprite du joueur
         this.player = this.game.add.sprite(50, 355, 'player');
+        // met le point d'ancrage au millieu du sprite
         this.player.anchor.setTo(0.5, 0.5);
+        // crée le sprite de l'ia
         this.ennemie = this.game.add.sprite(590, 355, 'ennemie');
+        // inverse le sprite sur l'axe x
         this.ennemie.scale.setTo(-1, 1);
+        // met le point d'ancrage au millieu du sprite
         this.ennemie.anchor.setTo(0.5, 0.5);
+        // les deux objet suivant sont la config pour les barre de vie du joueur est l'ia(largeur, hauteur, couleur etc...)
         this.playerConfigBar = {
             width: 100,
             x: 55,
@@ -36,37 +44,49 @@ var playState = {
             animationDuration: 200,
             flipped: true
         };
-        // crée les deux bouton pour les attaque du joueur 
-        this.button = game.add.button(0, 432, 'btnKikoha', kikoha, this, 2, 1, 0);
-        this.button = game.add.button(570, 432, 'btncac', cac, this, 2, 1, 0);
-        // crée toutes les annimations que l'on a besoin
+        // instancie les barres de vie avec les configs ci-dessus
         this.playerHealth = new HealthBar(this.game, this.playerConfigBar);
         this.enemieHealth = new HealthBar(this.game, this.ennemieConfigBar);
-        this.annimCacPlayer = this.player.animations.add('playerCac', [11, 5, 6, 7, 0, 11], 6);
+        // crée les deux bouton pour les attaque du joueur
+        this.buttonK = game.add.button(0, 432, 'btnKikoha', kikoha, this, 2, 1, 0);
+        this.buttonC = game.add.button(570, 432, 'btncac', cac, this, 2, 1, 0);
+        // crée toutes les annimations que l'on a besoin
+        this.annimStansePlayer = this.player.animations.add('playerDef',[0],1);
+        this.annimCacPlayer = this.player.animations.add('playerCac', [11, 5, 6, 7, 11, 0], 6);
         this.annimKikohaPlayer = this.player.animations.add('playerKikoha', [2, 0], 1);
         this.annimDefPlayer = this.player.animations.add('playerDef', [8], 1);
         this.annimDefCacPlayer = this.player.animations.add('playerDefCac', [11, 8, 11, 0], 3);
-        this.annimStansePlayer = this.player.animations.add('playerStanse', [0], 1);
+        this.annimDeathPlayer = this.player.animations.add('playerDeath', [9,10], 5);
         this.annimCacEnnemi = this.ennemie.animations.add('ennemiCac', [10, 1, 2, 3, 4, 5,10 ,0], 8);
         this.annimKikohaEnnemi = this.ennemie.animations.add('ennemiKikoha', [7, 0], 1);
         this.annimDefEnnemi = this.ennemie.animations.add('ennemiDef', [8], 1);
         this.annimDefCacEnnemi = this.ennemie.animations.add('ennemiDefCac', [10, 8, 10, 0], 3);
+        this.annimDeathEnnemi = this.ennemie.animations.add('ennemiDeath', [9], 1);
         // variable qui sert a que l'ennemie ne choisit qu'une fois son attaque par tour
         this.iaChoice = true;
+        this.visible = true;
     },
     update: function () {
-        // permet a l'affichage de barre de vie 
+        // definis le remplissage des barres de vie;
         this.enemieHealth.setPercent(ennemieStats.pv / 200 * 100);
         this.playerHealth.setPercent(playerStats.pv / 200 * 100);
+        // les boutons sont visible si this.visible = true et ne le sont pas quand elle vaut false;
+        this.buttonC.visible = this.visible;
+        this.buttonK.visible = this.visible;
         switch (state) {
+            // le momment de la partie où l'ont choiit son attaque
             case 'choix':
-                if (this.iaChoice) {
-                    // choix de l'attaque de l'ia
-                    ennemieAtt = ennemiePossibility[Math.floor(Math.random() * 3)];
+                // choix aléatoire de l'attaque par l'ia 
+                if(this.iaChoice){
+                    ennemieAtt = ennemiePossibility[Math.floor(Math.random() * 2)];
                     this.iaChoice = false;
                 }
+                this.visible = true;
                 break;
             default:
+                // rend invisible les bouton d'attaque
+                this.visible = false;
+                // si le joueur choisit l'attaque a distance 
                 if (playerAtt === 'kikoha') {
                     this.annimKikohaPlayer.play('playerKikoha');
                     this.kikohaPayer = game.add.sprite(this.player.x, this.player.y, 'kikohaPlayer');
@@ -78,9 +98,13 @@ var playState = {
                         this.kikohaPayer.destroy(true, false);
                         ennemieStats.pv -= (playerStats.att * 5) - (ennemieStats.def / 1.5);
                         if (ennemieStats.pv <= 0) {
-                            game.state.start('menu');
+                            this.annimDeathEnnemi.play('ennemiDeath');
+                            game.time.events.add(Phaser.Timer.SECOND * 1.2,function(){
+                                game.state.start('menu');
+                            },this);
                         }
                     }, this);
+                //si le joueur choisit l'attaque au corps a corps;
                 } else {
                     this.posX = 50 + Math.floor(Math.random() * 559);
                     this.posY = 0 + Math.floor(Math.random() * 355);
@@ -97,11 +121,15 @@ var playState = {
                         this.ennemie.x = 590;
                         this.ennemie.y = 355;
                         if (ennemieStats.pv <= 0) {
-                            game.state.start('menu');
+                            this.annimDeathEnnemi.play('ennemiDeath');
+                            game.time.events.add(Phaser.Timer.SECOND * 1.2,function(){
+                                game.state.start('menu');
+                            },this);
                         }
                     }, this);
                 }
-                game.time.events.add(Phaser.Timer.SECOND * 1.5, function () {
+                // si l'ia choisit l'attaque a distance 
+                game.time.events.add(Phaser.Timer.SECOND * 2.2, function () {
                     if (ennemieAtt === 'kikoha') {
                         this.annimKikohaEnnemi.play('ennemiKikoha');
                         this.annimDefPlayer.play('playerDef');
@@ -113,11 +141,15 @@ var playState = {
                             this.kikohaPayer.destroy(true, false);
                             playerStats.pv -= (ennemieStats.att * 4) - playerStats.def;
                             this.annimStansePlayer.play('playerDef');
-                            if (ennemieStats.pv <= 0) {
-                                game.state.start('menu');
+                            if (playerStats.pv <= 0) {
+                                this.annimDeathPlayer.play('playerDeath');
+                                game.time.events.add(Phaser.Timer.SECOND * 1.2, function(){
+                                    game.state.start('menu');
+                                }, this);
                             }
                         }
                         , this);
+                        //si le joueur choisit l'attaque au corps a corps;
                     } else {
                         this.posX = 50 + Math.floor(Math.random() * 559);
                         this.posY = 0 + Math.floor(Math.random() * 355);
@@ -134,8 +166,11 @@ var playState = {
                             this.ennemie.x = 590;
                             this.ennemie.y = 355;
                             this.annimStansePlayer.play('playerDef');
-                            if (ennemieStats.pv <= 0) {
-                                game.state.start('menu');
+                            if (playerStats.pv <= 0){
+                                this.annimDeathPlayer.play('playerDeath');
+                                game.time.events.add(Phaser.Timer.SECOND * 1.2, function(){
+                                    game.state.start('menu');
+                                }, this);
                             }
                         }
                         , this);
@@ -148,10 +183,10 @@ var playState = {
     }
 };
 function cac() {
-    playerAtt = 'cac';
-    state = 'fight';
+        playerAtt = 'cac';
+        state = 'fight';
 }
 function kikoha() {
-    playerAtt = 'kikoha';
-    state = 'fight';
+        playerAtt = 'kikoha';
+        state = 'fight';
 }

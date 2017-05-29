@@ -19,24 +19,9 @@ app.config(['$routeProvider',function ($routeProvider) {
                 controller: 'jeux'})
                 .otherwise({redirectTo: '/'});
     }]);
-app.controller('formation',function () {
-        
-    });
-app.controller('experience',function () {
-        
-    });
 app.controller('competence',['$http','$scope',function ($http,$scope) {
         $http.get('assets/js/Competences.json')
                 .then(function (rep) {
                     $scope.competences = rep.data;
                 });
     }]);
-app.controller('passion',function () {
-        
-    });
-app.controller('contact',function () {
-        
-    });
-    app.controller('jeux',function () {
-        
-    });
